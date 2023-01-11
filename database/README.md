@@ -1,6 +1,6 @@
 # Population database
 
-A [PostgreSQL](https://www.postgresql.org/) database running in a [Docker](https://www.docker.com/) container.
+A [PostgreSQL](https://www.postgresql.org/) database running in a [Docker](https://www.docker.com/) container. If you have an older version of Docker that does not have Compose V2, substitute the `docker compose` commands with `docker-compose`.
 
 See the `init.sql` file for the data structure and content.
 

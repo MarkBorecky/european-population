@@ -1,6 +1,6 @@
 # Population backend
 
-A small Node.JS backend server running in a [Docker](https://www.docker.com/) container. The implementation is not very clean or elegant on purpose.
+A small Node.JS backend server. The implementation is purposely not very elegant.
 
 The backend serves a JSON REST API with the following endpoints:
 
@@ -33,13 +33,26 @@ The backend serves a JSON REST API with the following endpoints:
 
 ## Running
 
-To create and run the backend container for the first time, run in this folder:
+You can run the backend server either with [npm](https://docs.npmjs.com/) or in [Docker](https://www.docker.com/) container.
+
+### With npm
+
+1. Install dependencies: `npm install`.
+2. Start the server: `npm start`.
+
+The API can be then accessed at `http://localhost:3001`.
+
+### With Docker
+
+ If you have an older version of Docker that does not have Compose V2, substitute the `docker compose` commands with `docker-compose`.
+
+To create and run the backend container, run in this folder:
 
 ```
 docker compose up
 ```
 
-This will build the image (if it does not exist) and run a container named  `population_backend`.
+This will build the image (if it does not exist) and run a container named `population_backend`.
 
 The API can be then accessed at `http://localhost:3001`.
 
