@@ -6,9 +6,9 @@ A) Backend
 
 - Use the sample PostgreSQL [database](./database). There is a README file with usage info.
   - Alternatively, you can set up your own database with the csv data ([`countries.csv`](./database/countries.csv) and [`cities.csv`](./database/cities.csv)). If you do, make sure that your submission includes instructions on how to run the database with this data.
-- Create a backend that serves the country and city data from the database to users via an API. There should be at least an endpoint that answers:
-  - Which countries have one or more cities that have a population greater than a given value? Which cities are they?
-    - For example with 3 000 000 the answer is Spain (Madrid, 3305408) and Germany (Berlin, 3677472).
+- Create a backend that serves the country and city data from the database to users via an API.
+  - There should be at least an endpoint for filtering countries based on city size, i.e. it should answer: Which countries have one or more cities that have a population greater than a given value? Which cities are they?
+    - For example with 3 000 000 the response should contain data for Spain and Germany with Madrid and Berlin, respectively.
 - Include a test case for the main functionality.
 - Provide a [Docker](https://www.docker.com/) container setup for you server so we can easily run it regardless of your tech choices.
 
