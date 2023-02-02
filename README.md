@@ -4,8 +4,8 @@ Imagine a client has asked you to build a small tool for browsing their EU popul
 
 A) Backend
 
-- Use the sample PostgreSQL [database](./database). There is a README file with usage info.
-  - Alternatively, you can set up your own database with the csv data ([`countries.csv`](./database/countries.csv) and [`cities.csv`](./database/cities.csv)). If you do, make sure that your submission includes instructions on how to run the database with this data.
+- Use the [sample database](./sample-database). There is a README file with usage info.
+  - Alternatively, you can set up your own database with the csv data ([`countries.csv`](./sample-database/countries.csv) and [`cities.csv`](./sample-database/cities.csv)). If you do, make sure that your submission includes instructions on how to run the database with this data.
 - Create a backend that serves the country and city data from the database to users via an API.
   - There should be at least an endpoint for filtering countries based on city size, i.e. it should answer: Which countries have one or more cities that have a population greater than a given value? Which cities are they?
     - For example with 3 000 000 the response should contain data for Spain and Germany with Madrid and Berlin, respectively.
@@ -14,7 +14,7 @@ A) Backend
 
 B) Frontend
 
-- Use the sample [backend](./backend). There is a README file with usage info.
+- Use the [sample backend](./sample-backend). There is a README file with usage info.
 - Create an interactive frontend to display and browse the country and city data provided by the backend's endpoints.
   - Some data should be fetched only after the user interacts with an element.
   - The user should be able to filter countries by population size.
