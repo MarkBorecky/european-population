@@ -6,6 +6,7 @@ import com.example.springbackend.service.CityService;
 import java.util.List;
 import javax.validation.constraints.Positive;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -27,8 +28,8 @@ public class CityController {
         return cityService.findByCriteria(name, countryCode, populationLowerThan, populationGreaterThan);
     }
 
-    @GetMapping("/api/v1/cities-by-size")
-    List<CityWithCountry> findByCitiesSize(@Positive @RequestParam Integer minimalPopulation) {
+    @GetMapping("/api/v1/cities-by-size/{minimalPopulation}")
+    List<CityWithCountry> findByCitiesSize(@Positive @PathVariable Integer minimalPopulation) {
         return cityService.findWithCitiesPopulationGreaterThan(minimalPopulation);
     }
 }
