@@ -1,0 +1,25 @@
+version: '3'
+services:
+  api:
+    container_name: api
+    build: ./spring-backend
+    ports:
+      - "8080:8080"
+    depends_on:
+      - population_db
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://database:5432/population
+      - SPRING_DATASOURCE_USERNAME=maro
+      - SPRING_DATASOURCE_PASSWORD=password
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+  
+  population_db:
+    container_name: population_db
+    build: ./sample-database
+    environment:
+      - POSTGRES_USER=maro
+      - POSTGRES_PASSWORD=password
+
+networks:
+  european-population:
+    driver: brige
