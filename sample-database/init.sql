@@ -1,7 +1,7 @@
 CREATE TABLE country (
   code VARCHAR (3) PRIMARY KEY,
   name VARCHAR (50) NOT NULL,
-	flag VARCHAR (50),
+  flag VARCHAR (50),
   population INT
 );
 

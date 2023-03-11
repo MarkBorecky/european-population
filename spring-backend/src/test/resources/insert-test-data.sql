@@ -1,0 +1,33 @@
+INSERT INTO country (code, name, flag, population)
+VALUES ('HUN', 'Hungary', '\uD83C\uDDED\uD83C\uDDFA', 9749763),
+       ('HRV', 'Croatia', '\uD83C\uDDED\uD83C\uDDF7', 4047200),
+       ('SWE', 'Sweden', '\uD83C\uDDF8\uD83C\uDDEA', 10353442),
+       ('ESP', 'Spain', '\uD83C\uDDEA\uD83C\uDDF8', 47351567),
+       ('NLD', 'Netherlands', '\uD83C\uDDF3\uD83C\uDDF1', 16655799),
+       ('LUX', 'Luxembourg', '\uD83C\uDDF1\uD83C\uDDFA', 632275),
+       ('BEL', 'Belgium', '\uD83C\uDDE7\uD83C\uDDEA', 11555997),
+       ('DEU', 'Germany', '\uD83C\uDDE9\uD83C\uDDEA', 83240525),
+       ('SVN', 'Slovenia', '\uD83C\uDDF8\uD83C\uDDEE', 2100126),
+       ('MLT', 'Malta', '\uD83C\uDDF2\uD83C\uDDF9', 525285);
+
+INSERT INTO city (countrycode, name, capital, population)
+VALUES ('NLD', 'Utrecht', false, 361966),
+       ('LUX', 'Luxembourg', true, 128514),
+       ('BEL', 'Antwerp', true, 528903),
+       ('DEU', 'Berlin', true, 3677472),
+       ('DEU', 'Hamburg', false, 1853935),
+       ('DEU', 'Munich', false, 1487708),
+       ('DEU', 'Cologne', false, 1073096),
+       ('DEU', 'Frankfurt am Main', false, 759224),
+       ('DEU', 'Stuttgart', false, 626275),
+       ('DEU', 'Düsseldorf', false, 619477),
+       ('HUN', 'Budapest', true, 1706851),
+       ('HRV', 'Zagreb', true, 769944),
+       ('SWE', 'Stockholm', true, 978770),
+       ('SWE', 'Gothenburg', false, 587549),
+       ('SWE', 'Malmö', false, 351749),
+       ('ESP', 'Madrid', true, 3305408),
+       ('ESP', 'Barcelona', false, 1636732),
+       ('ESP', 'Valencia', false, 789744),
+       ('ESP', 'Seville', false, 684234),
+       ('ESP', 'Zaragoza', false, 675301);

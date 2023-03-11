@@ -1,6 +1,0 @@
-services:
-  database:
-    container_name: population_db
-    build: .
-    ports:
-      - 127.0.0.1:5432:5432
