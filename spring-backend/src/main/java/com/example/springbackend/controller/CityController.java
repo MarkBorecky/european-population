@@ -1,16 +1,18 @@
 package com.example.springbackend.controller;
 
-import com.example.springbackend.model.City;
-import com.example.springbackend.model.CityWithCountry;
+import com.example.springbackend.controller.dto.CityDTO;
+import com.example.springbackend.controller.filter.CityFilter;
 import com.example.springbackend.service.CityService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import java.util.List;
-import javax.validation.constraints.Positive;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@Tag(name = "Cities")
 public class CityController {
 
     private final CityService cityService;
@@ -19,17 +21,17 @@ public class CityController {
         this.cityService = cityService;
     }
 
-    @GetMapping("/api/v1/cities")
-    List<City> findBy(
-            @RequestParam(required = false) String name,
-            @RequestParam(required = false) String countryCode,
-            @RequestParam(required = false) @Positive Integer populationGreaterThan,
-            @RequestParam(required = false) @Positive Integer populationLowerThan) {
-        return cityService.findByCriteria(name, countryCode, populationLowerThan, populationGreaterThan);
-    }
-
-    @GetMapping("/api/v1/cities-by-size/{minimalPopulation}")
-    List<CityWithCountry> findByCitiesSize(@Positive @PathVariable Integer minimalPopulation) {
-        return cityService.findWithCitiesPopulationGreaterThan(minimalPopulation);
+    @GetMapping(path = "/api/v1/cities", produces = MediaType.APPLICATION_JSON_VALUE)
+    @Operation(
+            summary = "Query city by criteria",
+            parameters = {
+                    @Parameter(name = "cityName", description = "part of city name for searching query"),
+                    @Parameter(name = "countryName", description = "part of country name for searching query"),
+                    @Parameter(name = "populationLowerThan", description = "Received cities will have smaller population than passed parameter"),
+                    @Parameter(name = "populationGreaterThan", description = "Received cities will have greater population than passed parameter")
+            }
+    )
+    List<CityDTO> findBy(CityFilter filter) {
+        return cityService.findByFilter(filter);
     }
 }

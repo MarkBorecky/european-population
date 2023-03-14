@@ -1,10 +1,6 @@
-package com.example.springbackend.model;
+package com.example.springbackend.repository.entity;
 
 import jakarta.persistence.*;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Positive;
 
 @Entity
 @Table(name = "city")
@@ -13,17 +9,11 @@ public class City {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @NotBlank
-    @Pattern(regexp = "^[A-Z]{3}$")
-    @Column(name = "countrycode")
-    private String countryCode;
-    @NotBlank
-    @Pattern(regexp = "^[A-Z]\\w*$")
+    @JoinColumn(name="countrycode", nullable=false) // name used in script doesn't match to java convention
+    @ManyToOne(fetch = FetchType.EAGER)
+    private Country country;
     private String name;
-    @NotNull
     private Boolean capital;
-    @NotNull
-    @Positive
     private Integer population;
 
     public Long getId() {
@@ -34,12 +24,13 @@ public class City {
         this.id = id;
     }
 
-    public String getCountryCode() {
-        return countryCode;
+
+    public Country getCountry() {
+        return country;
     }
 
-    public void setCountryCode(String countryCode) {
-        this.countryCode = countryCode;
+    public void setCountry(Country country) {
+        this.country = country;
     }
 
     public String getName() {
