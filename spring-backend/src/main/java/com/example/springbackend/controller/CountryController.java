@@ -25,14 +25,7 @@ public class CountryController {
     }
 
     @PostMapping("/api/v1/countries")
-    @Operation(
-            summary = "Gets all countries",
-            parameters = {
-                    @Parameter(name = "code", description = "part of code for searching query"),
-                    @Parameter(name = "countryName", description = "part of country name for searching query"),
-                    @Parameter(name = "populationLowerThan", description = "Received countries will have smaller population than passed parameter"),
-                    @Parameter(name = "populationGreaterThan", description = "Received countries will have greater population than passed parameter")
-            })
+    @Operation(summary = "Gets all countries")
     List<CountryDTO> fetchAll(@Valid @RequestBody CountryFilter filter) {
         return countryService.findByFilter(filter);
     }

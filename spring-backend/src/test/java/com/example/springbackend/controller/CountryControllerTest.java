@@ -56,9 +56,9 @@ public class CountryControllerTest {
                         .content("{}")
                 ).andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(1)))
-                .andExpect(jsonPath("$[0].countryCode").value("FIC"))
-                .andExpect(jsonPath("$[0].countryName").value("Fiction"))
-                .andExpect(jsonPath("$[0].flagEmoji").value("EMOJI"))
+                .andExpect(jsonPath("$[0].country_code").value("FIC"))
+                .andExpect(jsonPath("$[0].country").value("Fiction"))
+                .andExpect(jsonPath("$[0].flag_emoji").value("EMOJI"))
                 .andExpect(jsonPath("$[0].population").value(1));
     }
 

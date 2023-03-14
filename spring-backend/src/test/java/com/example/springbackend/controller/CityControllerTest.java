@@ -59,7 +59,7 @@ class CityControllerTest {
                 .andExpect(jsonPath("$[0].country").value("Finland"))
                 .andExpect(jsonPath("$[0].city").value("Helsinki"))
                 .andExpect(jsonPath("$[0].population").value("664921"))
-                .andExpect(jsonPath("$[0].isCapital").value("true"));
+                .andExpect(jsonPath("$[0].is_capital").value("true"));
     }
 
 }
