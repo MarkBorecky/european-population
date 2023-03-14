@@ -34,7 +34,7 @@ To find cities with greater population than 3 000 000 (from description of this 
       "populationGreaterThan": 3000000
     }'
 
-!(cities_greater_than_3000000.png)
+![screenshot with request](cities_greater_than_3000000.png)
 
 ## How to run application
 
