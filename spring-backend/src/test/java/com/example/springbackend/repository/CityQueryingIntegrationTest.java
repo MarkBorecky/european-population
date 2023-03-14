@@ -29,21 +29,23 @@ class CityQueryingIntegrationTest {
 
     private static Stream<Arguments> testArgumentsShouldFilterCitiesByCriteria() {
         return Stream.of(
-                Arguments.of(null, null, null, null, List.of("Utrecht", "Luxembourg", "Antwerp", "Berlin", "Hamburg", "Munich", "Cologne", "Frankfurt am Main", "Stuttgart", "Düsseldorf", "Budapest", "Zagreb", "Stockholm", "Gothenburg", "Malmö", "Madrid", "Barcelona", "Valencia", "Seville", "Zaragoza")),
-                Arguments.of("ar", null, null, null, List.of("Stuttgart", "Barcelona", "Zaragoza")),
-                Arguments.of("ar", "ai", null, null, List.of("Zaragoza", "Barcelona")),
-                Arguments.of("ar", "ai", 1_000_000, null, List.of("Zaragoza")),
-                Arguments.of("ar", "ai", null, 1_000_000, List.of("Barcelona")),
-                Arguments.of("ar", "ai", 1_600_000, 800_000, List.of()),
-                Arguments.of(null, null, null, 3_000_000, List.of("Madrid", "Berlin"))
+                Arguments.of(null, null, null, null, null, List.of("Utrecht", "Luxembourg", "Antwerp", "Berlin", "Hamburg", "Munich", "Cologne", "Frankfurt am Main", "Stuttgart", "Düsseldorf", "Budapest", "Zagreb", "Stockholm", "Gothenburg", "Malmö", "Madrid", "Barcelona", "Valencia", "Seville", "Zaragoza")),
+                Arguments.of(null, null, null, null, true, List.of("Luxembourg", "Berlin", "Antwerp", "Budapest", "Stockholm", "Madrid", "Zagreb")),
+                Arguments.of(null, null, null, null, false, List.of("Utrecht", "Hamburg", "Munich", "Cologne", "Frankfurt am Main", "Stuttgart", "Düsseldorf", "Gothenburg", "Malmö", "Barcelona", "Valencia", "Seville", "Zaragoza")),
+                Arguments.of("ar", null, null, null, null, List.of("Stuttgart", "Barcelona", "Zaragoza")),
+                Arguments.of("ar", "ai", null, null, null, List.of("Zaragoza", "Barcelona")),
+                Arguments.of("ar", "ai", 1_000_000, null, null, List.of("Zaragoza")),
+                Arguments.of("ar", "ai", null, 1_000_000, null, List.of("Barcelona")),
+                Arguments.of("ar", "ai", 1_600_000, 800_000, null, List.of()),
+                Arguments.of(null, null, null, 3_000_000, null, List.of("Madrid", "Berlin"))
         );
     }
 
     @ParameterizedTest
     @MethodSource("testArgumentsShouldFilterCitiesByCriteria")
-    void shouldFilterCitiesByCriteria(String cityName, String countryCode, Integer maxPopulation, Integer minPopulation, List<String> expectedCityNames) {
+    void shouldFilterCitiesByCriteria(String cityName, String countryCode, Integer maxPopulation, Integer minPopulation, Boolean isCapital, List<String> expectedCityNames) {
         // given
-        CityFilter cityFilter = new CityFilter(cityName, countryCode, maxPopulation, minPopulation);
+        CityFilter cityFilter = new CityFilter(cityName, countryCode, maxPopulation, minPopulation, isCapital);
 
         // when
         List<City> filtered = cityRepository.findByFilter(cityFilter);

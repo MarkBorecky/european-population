@@ -14,7 +14,7 @@ public class CountryService {
         this.countryRepository = countryRepository;
     }
 
-    public List<CountryDTO> findAll(CountryFilter filter) {
+    public List<CountryDTO> findByFilter(CountryFilter filter) {
         return countryRepository.findByFilter(filter).stream()
                 .map(CountryDTO::map)
                 .toList();

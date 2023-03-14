@@ -1,11 +1,19 @@
 package com.example.springbackend.controller.filter;
 
+import jakarta.annotation.Nullable;
+import jakarta.validation.constraints.Positive;
 import java.util.Optional;
 
 public record CountryFilter(
+        @Nullable
         String code,
+        @Nullable
         String name,
+        @Nullable
+        @Positive
         Integer populationLowerThan,
+        @Nullable
+        @Positive
         Integer populationGreaterThan
 ) {
 

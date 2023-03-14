@@ -6,12 +6,16 @@ import com.example.springbackend.service.CountryService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import java.util.List;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @Tag(name = "Countries")
+@Validated
 public class CountryController {
 
     private final CountryService countryService;
@@ -20,7 +24,7 @@ public class CountryController {
         this.countryService = countryService;
     }
 
-    @GetMapping("/api/v1/countries")
+    @PostMapping("/api/v1/countries")
     @Operation(
             summary = "Gets all countries",
             parameters = {
@@ -29,7 +33,7 @@ public class CountryController {
                     @Parameter(name = "populationLowerThan", description = "Received countries will have smaller population than passed parameter"),
                     @Parameter(name = "populationGreaterThan", description = "Received countries will have greater population than passed parameter")
             })
-    List<CountryDTO> fetchAll(CountryFilter filter) {
-        return countryService.findAll(filter);
+    List<CountryDTO> fetchAll(@Valid @RequestBody CountryFilter filter) {
+        return countryService.findByFilter(filter);
     }
 }

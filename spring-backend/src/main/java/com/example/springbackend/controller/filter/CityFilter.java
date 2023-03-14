@@ -1,12 +1,22 @@
 package com.example.springbackend.controller.filter;
 
+import jakarta.annotation.Nullable;
+import jakarta.validation.constraints.Positive;
 import java.util.Optional;
 
 public record CityFilter(
+        @Nullable
         String cityName,
+        @Nullable
         String countryName,
+        @Nullable
+        @Positive
         Integer populationLowerThan,
-        Integer populationGreaterThan
+        @Nullable
+        @Positive
+        Integer populationGreaterThan,
+        @Nullable
+        Boolean isCapital
 ) {
 
     public Optional<String> optionalCityName() {
@@ -23,6 +33,10 @@ public record CityFilter(
 
     public Optional<Integer> optionalPopulationGreaterThan() {
         return Optional.ofNullable(populationGreaterThan);
+    }
+
+    public Optional<Boolean> optionalIsCapital() {
+        return Optional.ofNullable(isCapital);
     }
 
 }

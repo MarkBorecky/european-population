@@ -16,27 +16,23 @@ import org.springframework.stereotype.Repository;
 public interface CityRepository extends JpaRepository<City, Long>, JpaSpecificationExecutor<City> {
 
     private static Specification<City> cityNameContains(@NonNull String cityName) {
-        return (city, cq, cb) -> cb.like(
-                cb.lower(city.get("name")),
-                StringUtils.wrap(cityName.toLowerCase(), "%"));
+        return (city, cq, cb) -> cb.like(cb.lower(city.get("name")), StringUtils.wrap(cityName.toLowerCase(), "%"));
     }
 
     private static Specification<City> countryNameContains(@NonNull String countryName) {
-        return (city, cq, cb) -> cb.like(
-                cb.lower(city.get("country").get("name")),
-                StringUtils.wrap(countryName.toLowerCase(), "%"));
+        return (city, cq, cb) -> cb.like(cb.lower(city.get("country").get("name")), StringUtils.wrap(countryName.toLowerCase(), "%"));
     }
 
     private static Specification<City> populationGreaterThan(@NonNull Integer populationSize) {
-        return (city, cq, cb) -> cb.gt(
-                city.get("population"),
-                populationSize);
+        return (city, cq, cb) -> cb.gt(city.get("population"), populationSize);
     }
 
     private static Specification<City> populationLowerThan(@NonNull Integer populationSize) {
-        return (city, cq, cb) -> cb.lt(
-                city.get("population"),
-                populationSize);
+        return (city, cq, cb) -> cb.lt(city.get("population"), populationSize);
+    }
+
+    private static Specification<City> cityIsCapital(@NonNull Boolean isCapital) {
+        return (city, cq, cb) -> cb.equal(city.get("capital"), isCapital);
     }
 
     default List<City> findByFilter(CityFilter filter) {
@@ -44,7 +40,8 @@ public interface CityRepository extends JpaRepository<City, Long>, JpaSpecificat
                         filter.optionalCityName().map(CityRepository::cityNameContains),
                         filter.optionalCountryName().map(CityRepository::countryNameContains),
                         filter.optionalPopulationGreaterThan().map(CityRepository::populationGreaterThan),
-                        filter.optionalPopulationLowerThan().map(CityRepository::populationLowerThan))
+                        filter.optionalPopulationLowerThan().map(CityRepository::populationLowerThan),
+                        filter.optionalIsCapital().map(CityRepository::cityIsCapital))
                 .flatMap(Optional::stream)
                 .toList();
         return findAll(Specification.allOf(citySpecifications));
