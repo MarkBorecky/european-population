@@ -1,34 +1,42 @@
-# Home assignment
+## Authors comment
 
-Imagine a client has asked you to build a small tool for browsing their EU population data. There is data for countries and some of the cities in those countries. You have two options for the approach:
+I used SpringBoot 3 and Java 19 for develop backend solution.
+I've changed a little bit docker file. I used multi-stage build to keep the image clean without unnecessary files.
+Furthermore, I created dev profile with h2 DB and some SQL scripts to make easier and faster develop the application.
+The application doesn't have much functionality, so I provided just a few tests.
+I've extracted preparing test data to script, by @Sql annotation and I avoided multiplication tests by @ParameterizedTest
 
-A) Backend
+I saw a lot of production solutions for "browser" problem. I mean endpoint which serve data and consume a range of optional criteria.
 
-- Use the [sample database](./sample-database). There is a README file with usage info.
-  - Alternatively, you can set up your own database with the csv data ([`countries.csv`](./sample-database/countries.csv) and [`cities.csv`](./sample-database/cities.csv)). If you do, make sure that your submission includes instructions on how to run the database with this data.
-- Create a backend that serves the country and city data from the database to users via an API.
-  - There should be at least an endpoint for filtering countries based on city size, i.e. it should answer: Which countries have one or more cities that have a population greater than a given value? Which cities are they?
-    - For example with 3 000 000 the response should contain data for Spain and Germany with Madrid and Berlin, respectively.
-- Include a test case for the main functionality.
-- Provide a [Docker](https://www.docker.com/) container setup for you server so we can easily run it regardless of your tech choices.
+All solutions in my opinion ware unpleasant for eyes (real jungle of if's and loops or raw concatenations of strings).
+I've decided to use a little bit of functional approach with specifications. It could be a little bit less readable for some developers, but this is more a question of taste. And team should make a common agreement for code standards and style.
 
-B) Frontend
+Both controllers have just only one endpoint. There could be something to update data, for example population.
 
-- Use the [sample backend](./sample-backend). There is a README file with usage info.
-- Create an interactive frontend to display and browse the country and city data provided by the backend's endpoints.
-  - Some data should be fetched only after the user interacts with an element.
-  - The user should be able to filter countries by population size.
-- Include a test case that checks that the main elements are visible on the page.
+An architecture would seem a little bit too complicated, but entity objects don't go out from transaction. And DTO objects has more useful structure for user. And this approach allow avoiding a lot of problems in prospective development.
 
-The assignment will give us material to discuss during your technical interview. We will consider your approach to problem solving, coding style, and knowledge. We are looking for **clear, consistent and clean** code.
+I use swagger with proper annotation to document application.
 
-As long as your solution fulfils the requirements, you can choose the languages, frameworks, etc. Choose technologies that you know well: we really want to see your core strengths demonstrated.
+During development tests, I find out one fail in data provided by SQL script in sample-database:
+Antwerp is not a capital of Belgium, but Brussels:)
 
-## How to submit
+Application only read data from DB, so validation wouldn't work.
+A possible solution for additional validating data would be filtering data if they meet constraints, like city has to have country, or country has to have a flag.
+So this would be solution for not serve data like country "Fiction" to user.
 
-Please return the assignment with instructions on how to run it either as a Git repository or a zip file. To help us do a fair review, include a short description (for example in the README file) of what you focused on the most in the implementation and if there are any known issues.
+To find cities with greater population than 3 000 000 (from description of this assignment) you have to send request like bellow
 
-# How to run application
+    curl -X 'POST' \
+      'http://localhost:8080/api/v1/cities' \
+      -H 'accept: application/json' \
+      -H 'Content-Type: application/json' \
+      -d '{
+      "populationGreaterThan": 3000000
+    }'
+
+!(cities_greater_than_3000000.png)
+
+## How to run application
 
 You can run application with h2 db using local profile by below command from spring-backend folder level
 
@@ -37,4 +45,16 @@ You can run application with h2 db using local profile by below command from spr
 Or you can run whole docker compose by
 
     docker-compose up --build
+
+## How to test
+
+Once you run an application, you can check API with swagger
+
+    http://localhost:8080/swagger-ui/index.html
+    
+For presentation purpose I also exposed port 8080 so you can use any client like Postman
+
+You can run test using bellow command from spring-backend folder level
+
+    mvn test
 
