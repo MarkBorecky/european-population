@@ -1,3 +1,6 @@
-application-description: @project.description@
-application-version: @project.version@
-springdoc.use-fqn: true
+spring:
+  profiles:
+    active: @spring.profiles.active@
+  sql:
+    init:
+      mode: embedded

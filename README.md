@@ -27,3 +27,14 @@ As long as your solution fulfils the requirements, you can choose the languages,
 ## How to submit
 
 Please return the assignment with instructions on how to run it either as a Git repository or a zip file. To help us do a fair review, include a short description (for example in the README file) of what you focused on the most in the implementation and if there are any known issues.
+
+# How to run application
+
+You can run application with h2 db using local profile by below command from spring-backend folder level
+
+    mvn clean package spring-boot:run -Plocal
+
+Or you can run whole docker compose by
+
+    docker-compose up --build
+

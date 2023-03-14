@@ -41,14 +41,14 @@ class CityQueryingIntegrationTest {
 
     @ParameterizedTest
     @MethodSource("testArgumentsShouldFilterCitiesByCriteria")
-    void shouldFilterCitiesByCriteria(String cityName, String CountryCode, Integer maxPopulation, Integer minPopulation, List<String> expectedCityNames) {
+    void shouldFilterCitiesByCriteria(String cityName, String countryCode, Integer maxPopulation, Integer minPopulation, List<String> expectedCityNames) {
         // given
-        CityFilter cityFilter = new CityFilter(cityName, CountryCode, maxPopulation, minPopulation);
+        CityFilter cityFilter = new CityFilter(cityName, countryCode, maxPopulation, minPopulation);
 
         // when
         List<City> filtered = cityRepository.findByFilter(cityFilter);
 
         // then
-        assertThat(filtered).extracting("city").containsExactlyInAnyOrderElementsOf(expectedCityNames);
+        assertThat(filtered).extracting("name").containsExactlyInAnyOrderElementsOf(expectedCityNames);
     }
 }
