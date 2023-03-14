@@ -38,7 +38,7 @@ public class CountryQueryingIntegrationTest {
 
     @ParameterizedTest
     @MethodSource("testArgumentsShouldFilterCountriesByCriteria")
-    void shouldFilterCoutriesByCriteria(String countryCode, String countryName, Integer maxPopulation, Integer minPopulation, List<String> expectedCityNames) {
+    void shouldFilterCountriesByCriteria(String countryCode, String countryName, Integer maxPopulation, Integer minPopulation, List<String> expectedCityNames) {
         // given
         CountryFilter cityFilter = new CountryFilter(countryCode, countryName, maxPopulation, minPopulation);
 
